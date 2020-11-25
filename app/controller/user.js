@@ -7,9 +7,36 @@ class UserController extends Controller {
     async index() {
         // 拿到数据
         let result = [];
+        // 做分页功能
+        let page = this.ctx.query.page ? parseInt(this.ctx.query.page) : 1
+        let limit = 5;
+        let offset = (page - 1) * 5
 
         // result = await this.app.model.User.findAll()
-        result = await this.app.model.User.findAndCountAll()
+        let Op = this.app.Sequelize.Op
+        result = await this.app.model.User.findAndCountAll({
+            where: {
+                // sex: "男",
+                // username: {
+                //     [Op.like]: "%邓%"
+                // },
+                // id: {
+                //     [Op.gt]: 10
+                // }
+            },
+            // attributes: ["id", "username"],
+            attributes: {
+                // exclude 不包含属性
+                exclude: ["password"]
+            },
+            // 排序
+            order: [
+                ["updated_at", "DESC"],
+                ["id", "DESC"]
+            ],
+            offset,
+            limit
+        })
 
         // 获取url的问号get传值参数
         // this.ctx.query.page;
