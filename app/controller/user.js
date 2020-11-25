@@ -129,6 +129,43 @@ class UserController extends Controller {
             data: res
         };
     }
+
+    // 修改
+    async update() {
+        // 获取id
+        let id = this.ctx.params.id ? parseInt(this.ctx.params.id) : 0
+        // id的那条数据
+        let data = await this.app.model.User.findByPk(id)
+        if(!data) {
+            return this.ctx.body = {
+                msg: "fail",
+                data: "该记录不存在！"
+            }
+        }
+        // data.username = 'username修改'
+        // data.sex = '秘密哦'
+        // let res = await data.save()
+
+        let params = this.ctx.request.body;
+        let res = await data.update(params, {
+            // 第二个参数--限制可以修改的字段
+            fields: ["username"]
+        })
+        // let res = await data.update({
+        //     username: "postman",
+        //     sex: "男"
+        // })
+
+
+
+        this.ctx.body = {
+            msg: "ok",
+            data: res
+        }
+
+
+
+    }
 }
 
 module.exports = UserController;
