@@ -6,16 +6,21 @@ class UserController extends Controller {
     // 用户列表
     async index() {
         // 拿到数据
-        let result = demo;
+        let result = [];
+
+        // result = await this.app.model.User.findAll()
+        result = await this.app.model.User.findAndCountAll()
+
         // 获取url的问号get传值参数
-        this.ctx.query.page;
+        // this.ctx.query.page;
+
         // 响应
         this.ctx.body = {
             msg: 'ok',
             data: result
         };
         // 修改状态码
-        this.ctx.status = 201;
+        // this.ctx.status = 200;
     }
 
     // 读取某个用户数据
@@ -31,6 +36,7 @@ class UserController extends Controller {
         // }
 
 
+        // 查询单个
         let detail = await this.app.model.User.findOne({
             where: {
                 id,
@@ -59,33 +65,33 @@ class UserController extends Controller {
         // 批量新增
         let res = await this.app.model.User.bulkCreate([
             {
-                username: "黎小左",
-                password: "密码1",
+                username: "黎小左11",
+                password: "密码11",
                 sex: "女"
             },
             {
-                username: "邓小右",
-                password: "密码2",
+                username: "邓小右11",
+                password: "密码22",
                 sex: "男"
             },
             {
-                username: "黎小左2",
-                password: "密码3",
+                username: "黎小左22",
+                password: "密码33",
                 sex: "女"
             },
             {
-                username: "邓小右2",
-                password: "密码4",
+                username: "邓小右22",
+                password: "密码44",
                 sex: "男"
             },
             {
-                username: "黎小左3",
-                password: "密码5",
+                username: "黎小左33",
+                password: "密码55",
                 sex: "女"
             },
             {
-                username: "邓小右3",
-                password: "密码6",
+                username: "邓小右33",
+                password: "密码66",
                 sex: "男"
             },
         ])

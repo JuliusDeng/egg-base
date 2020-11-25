@@ -16,13 +16,19 @@ module.exports = app => {
             allowNull: false, 
             defaultValue: '' ,
             set(val) {
-                let hash = val + "65665"
+                let hash = val + "爱心+"
                 this.setDataValue("password", hash)
             }
         },
         avatar_url: { type: STRING(200), allowNull: true, defaultValue: '' },
         sex: { type: ENUM, values: ['男', '女', '保密'], allowNull: true, defaultValue: '男', comment: '用户性别' },
-        created_at: DATE,
+        created_at: {
+            type: DATE,
+            get() {
+                const val = this.getDataValue("created_at")
+                return (new Date(val)).getTime()
+            }
+        },
         updated_at: DATE
     });
 
