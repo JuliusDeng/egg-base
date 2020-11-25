@@ -26,7 +26,7 @@ module.exports = app => {
             type: DATE,
             get() {
                 const val = this.getDataValue("created_at")
-                return (new Date(val)).getTime() 
+                return (new Date(val)).getTime()  
             }
         },
         updated_at: DATE
