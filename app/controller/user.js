@@ -162,10 +162,40 @@ class UserController extends Controller {
             msg: "ok",
             data: res
         }
+    }
+    
+    async destroy() {
+        // 单个删除--.1
+        // let id = this.ctx.params.id ? parseInt(this.ctx.params.id) : 0;
+        // let data = await this.app.model.User.findByPk(id)
+        // if(!data) {
+        //     return this.ctx.body = {
+        //         msg: "fail",
+        //         data: "该记录不存在"
+        //     };
+        // }
+        // 单个删除--.2
 
+        // 批量删除
+        let Op = this.app.model.Sequelize.Op;
+        let res = await this.app.model.User.destroy({
+            where: {
+                id: {
+                    [Op.lte]: 5
+                }
+            }
+        })
 
+        // 返回值
+        this.ctx.body = {
+            msg: "ok",
+            data: res
+        }
+
+        
 
     }
+
 }
 
 module.exports = UserController;
